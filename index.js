@@ -115,7 +115,7 @@ async function commitAndPush() {
         const message = `Update: ${year}/${month}/${day} ${hours}:${minutes}`;
         await git.add('./*');
         await git.commit(message);
-        await git.push('origin', 'master');
+        await git.push('origin');
       }
     } catch (err) {
       console.error(`Error during Git operations: ${err}`);
