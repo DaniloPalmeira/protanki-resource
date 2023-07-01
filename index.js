@@ -1,3 +1,4 @@
+// Importações
 const http = require('http');
 const fs = require('fs');
 const fsp = require('fs').promises;
@@ -6,10 +7,24 @@ const crypto = require('crypto');
 const url = require('url');
 const git = require('simple-git');
 
-
+// Constantes
 const rPath = path.join(process.env.APPDATA, 'StandaloneLoader', 'Local Store', 'cache');
 const base64RegExp = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/;
 const ipRegExp = /http:\/\/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
+
+// Funções síncronas
+function isBase64(str) {
+  return base64RegExp.test(str);
+}
+
+// Funções assíncronas
+async function createDirectory(directory) {
+  try {
+    await fsp.mkdir(directory, { recursive: true });
+  } catch (err) {
+    if (err.code !== 'EEXIST') throw err;
+  }
+}
 
 async function downloadFile(downloadUrl) {
   const parsedUrl = new url.URL(downloadUrl);
@@ -26,37 +41,27 @@ async function downloadFile(downloadUrl) {
 }
 
 async function downloadAndCheckFiles(files) {
-  for (const file of files) {
-    const writePath = path.join('resources', 'swf', path.basename(new url.URL(file.url).pathname));
-    await createDirectory(path.dirname(writePath));
-
-    const data = await downloadFile(file.url);
-    const downloadedMD5 = crypto.createHash('md5').update(data).digest('hex');
-
-    let localMD5;
-    try {
-      localMD5 = await calculateMD5(writePath);
-    } catch (err) {
-      if (err.code !== 'ENOENT') throw err;
+    for (const file of files) {
+      const writePath = path.join('resources', 'swf', path.basename(new url.URL(file.url).pathname));
+      await createDirectory(path.dirname(writePath));
+  
+      const data = await downloadFile(file.url);
+      const downloadedMD5 = crypto.createHash('md5').update(data).digest('hex');
+  
+      let localMD5;
+      try {
+        localMD5 = await calculateMD5(writePath);
+      } catch (err) {
+        if (err.code !== 'ENOENT') throw err;
+      }
+  
+      if (downloadedMD5 !== localMD5) {
+        await fsp.writeFile(writePath, data);
+      }
     }
-
-    if (downloadedMD5 !== localMD5) {
-      await fsp.writeFile(writePath, data);
-    }
+  
+    console.log('Files downloaded and checked successfully.');
   }
-}
-
-function isBase64(str) {
-  return base64RegExp.test(str);
-}
-
-async function createDirectory(directory) {
-  try {
-    await fsp.mkdir(directory, { recursive: true });
-  } catch (err) {
-    if (err.code !== 'EEXIST') throw err;
-  }
-}
 
 function calculateMD5(filePath) {
   return new Promise((resolve, reject) => {
@@ -103,8 +108,9 @@ async function commitAndPush() {
       const message = `Update ${new Date().toISOString()}`;
       await git().add('./*');
       await git().commit(message);
-      await git().push('origin');
-
+      await git().push('origiddn');
+  
+      console.log('Git operations completed successfully.');
     } catch (err) {
       console.error(`Error during Git operations: ${err}`);
     }
@@ -135,4 +141,5 @@ async function main() {
   }
 }
 
+// Execução do código
 main();
