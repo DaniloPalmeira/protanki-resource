@@ -4,7 +4,8 @@ const fsp = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
 const url = require('url');
-const git = require('simple-git');
+const simpleGit = require('simple-git');
+
 
 
 const rPath = path.join(process.env.APPDATA, 'StandaloneLoader', 'Local Store', 'cache');
@@ -100,15 +101,26 @@ async function updateFile(readPath, writePath) {
 
 async function commitAndPush() {
     try {
-      const message = `Update ${new Date().toISOString()}`;
-      await git().add('./*');
-      await git().commit(message);
-      await git().push('origin');
-
+      const git = simpleGit();
+      const status = await git.status();
+      
+      if (!status.isClean()) {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // JavaScript months are 0-indexed
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        
+        const message = `Update: ${year}/${month}/${day} ${hours}:${minutes}`;
+        await git.add('./*');
+        await git.commit(message);
+        await git.push('origin', 'master');
+      }
     } catch (err) {
       console.error(`Error during Git operations: ${err}`);
     }
-  }
+}
 
 async function main() {
   try {
