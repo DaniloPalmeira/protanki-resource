@@ -41,27 +41,25 @@ async function downloadFile(downloadUrl) {
 }
 
 async function downloadAndCheckFiles(files) {
-    for (const file of files) {
-      const writePath = path.join('resources', 'swf', path.basename(new url.URL(file.url).pathname));
-      await createDirectory(path.dirname(writePath));
-  
-      const data = await downloadFile(file.url);
-      const downloadedMD5 = crypto.createHash('md5').update(data).digest('hex');
-  
-      let localMD5;
-      try {
-        localMD5 = await calculateMD5(writePath);
-      } catch (err) {
-        if (err.code !== 'ENOENT') throw err;
-      }
-  
-      if (downloadedMD5 !== localMD5) {
-        await fsp.writeFile(writePath, data);
-      }
+  for (const file of files) {
+    const writePath = path.join('resources', 'swf', path.basename(new url.URL(file.url).pathname));
+    await createDirectory(path.dirname(writePath));
+
+    const data = await downloadFile(file.url);
+    const downloadedMD5 = crypto.createHash('md5').update(data).digest('hex');
+
+    let localMD5;
+    try {
+      localMD5 = await calculateMD5(writePath);
+    } catch (err) {
+      if (err.code !== 'ENOENT') throw err;
     }
-  
-    console.log('Files downloaded and checked successfully.');
+
+    if (downloadedMD5 !== localMD5) {
+      await fsp.writeFile(writePath, data);
+    }
   }
+}
 
 function calculateMD5(filePath) {
   return new Promise((resolve, reject) => {
@@ -104,17 +102,15 @@ async function updateFile(readPath, writePath) {
 }
 
 async function commitAndPush() {
-    try {
-      const message = `Update ${new Date().toISOString()}`;
-      await git().add('./*');
-      await git().commit(message);
-      await git().push('origiddn');
-  
-      console.log('Git operations completed successfully.');
-    } catch (err) {
-      console.error(`Error during Git operations: ${err}`);
-    }
+  try {
+    const message = `Update ${new Date().toISOString()}`;
+    await git().add('./*');
+    await git().commit(message);
+    await git().push('origin');
+  } catch (err) {
+    console.error(`Error during Git operations: ${err}`);
   }
+}
 
 async function main() {
   try {
