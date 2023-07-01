@@ -5,6 +5,7 @@ const fsp = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
 const url = require('url');
+const git = require('simple-git');
 
 // Constantes
 const rPath = path.join(process.env.APPDATA, 'StandaloneLoader', 'Local Store', 'cache');
@@ -100,6 +101,17 @@ async function updateFile(readPath, writePath) {
   }
 }
 
+async function commitAndPush() {
+  try {
+    const message = `Update ${new Date().toISOString()}`;
+    await git().add('./*');
+    await git().commit(message);
+    await git().push('origin');
+  } catch (err) {
+    console.error(`Error during Git operations: ${err}`);
+  }
+}
+
 async function main() {
   try {
     const files = await fsp.readdir(rPath);
@@ -118,6 +130,7 @@ async function main() {
       { url: 'http://146.59.110.103/library.swf' }
     ];
     await downloadAndCheckFiles(filesToDownload);
+    await commitAndPush();
     console.log('Complete without errors.');
   } catch (err) {
     console.error(`Error reading directory or executing tasks: ${err}`);
