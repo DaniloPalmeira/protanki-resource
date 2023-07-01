@@ -103,7 +103,8 @@ async function commitAndPush() {
       const message = `Update ${new Date().toISOString()}`;
       await git().add('./*');
       await git().commit(message);
-      await git().push('main');
+      await git().push('origin', 'master');
+
     } catch (err) {
       console.error(`Error during Git operations: ${err}`);
     }
