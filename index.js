@@ -6,6 +6,7 @@ const path = require('path');
 const crypto = require('crypto');
 const url = require('url');
 const git = require('simple-git');
+const { exec } = require('child_process');
 
 // Constantes
 const rPath = path.join(process.env.APPDATA, 'StandaloneLoader', 'Local Store', 'cache');
@@ -112,8 +113,22 @@ async function commitAndPush() {
   }
 }
 
+async function minimizeTerminalWindow() {
+  return new Promise((resolve, reject) => {
+    exec('powershell -command "(New-Object -ComObject Shell.Application).MinimizeAll()"', (error, stdout, stderr) => {
+      if (error) {
+        reject(`Error minimizing terminal window: ${error}`);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
 async function main() {
   try {
+    if (process.argv.includes('-git')) {
+      await minimizeTerminalWindow();
+    }
     const files = await fsp.readdir(rPath);
     const tasks = files
       .filter(isBase64)
