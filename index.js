@@ -130,7 +130,12 @@ async function main() {
       { url: 'http://146.59.110.103/library.swf' }
     ];
     await downloadAndCheckFiles(filesToDownload);
-    await commitAndPush();
+    
+    // Verifique se o argumento -git foi passado na linha de comando
+    if (process.argv.includes('-git')) {
+        await commitAndPush();
+    }
+    
     console.log('Complete without errors.');
   } catch (err) {
     console.error(`Error reading directory or executing tasks: ${err}`);
