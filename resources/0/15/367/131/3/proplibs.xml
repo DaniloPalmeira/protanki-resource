@@ -1,0 +1,21 @@
+<proplibs>
+	<library name='NuBu 2' resource-id='3ec92' version='1' />
+	<library name='Concrete Tiles' resource-id='66ea3' version='2' />
+	<library name='NuBu 6' resource-id='294d3' version='1' />
+	<library name='City Builds' resource-id='68178' version='2' />
+	<library name='NuBu 12' resource-id='a316d' version='1' />
+	<library name='Promotion' resource-id='aa6bf' version='23' />
+	<library name='Bush' resource-id='460af' version='5' />
+	<library name='Cliffs' resource-id='54268' version='2' />
+	<library name='Roadblock' resource-id='74fc8' version='1' />
+	<library name='NuBu 3' resource-id='cdcec' version='1' />
+	<library name='NuBu 14' resource-id='90256' version='1' />
+	<library name='NuBu 9' resource-id='cc902' version='1' />
+	<library name='Village Builds' resource-id='bbab9' version='1' />
+	<library name='Grass Tiles' resource-id='9d53c' version='1' />
+	<library name='NuBu 8' resource-id='b1c5a' version='1' />
+	<library name='NuBu 10' resource-id='3219a' version='1' />
+	<library name='Slopes Rises' resource-id='ba05c' version='2' />
+	<library name='Concrete Walls' resource-id='da436' version='3' />
+	<library name='Bridge Parts' resource-id='f2e25' version='2' />
+</proplibs>

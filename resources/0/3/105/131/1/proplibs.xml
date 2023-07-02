@@ -1,0 +1,12 @@
+<proplibs>
+	<library name='Roadblock' resource-id='74fc8' version='1' />
+	<library name='Promotion' resource-id='aa6bf' version='1b' />
+	<library name='Terrain' resource-id='b60f0' version='c' />
+	<library name='Exterior' resource-id='8f4a3' version='1' />
+	<library name='Industrial Elements' resource-id='149ec' version='2' />
+	<library name='Defense' resource-id='54cf7' version='3' />
+	<library name='Stuffs' resource-id='90ce8' version='1' />
+	<library name='Com Build' resource-id='4fde1' version='3' />
+	<library name='Passage' resource-id='d9873' version='3' />
+	<library name='Plants' resource-id='6c356' version='3' />
+</proplibs>

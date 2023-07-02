@@ -1,0 +1,15 @@
+<proplibs>
+	<library name='Stuffs' resource-id='90ce8' version='1' />
+	<library name='Promotion' resource-id='aa6bf' version='22' />
+	<library name='City Buildings' resource-id='94e9a' version='2' />
+	<library name='Industrial Bridge' resource-id='3be76' version='3' />
+	<library name='Outer Walls' resource-id='74ed9' version='4' />
+	<library name='Land Tiles' resource-id='15e63' version='2' />
+	<library name='Land Rocks' resource-id='cf665' version='2' />
+	<library name='Waffle Fence' resource-id='3242e' version='6' />
+	<library name='NuBu 6' resource-id='294d3' version='1' />
+	<library name='Industrial Elements' resource-id='149ec' version='2' />
+	<library name='Broken Walls' resource-id='a2065' version='2' />
+	<library name='Bush' resource-id='460af' version='5' />
+	<library name='NuBu 9' resource-id='cc902' version='1' />
+</proplibs>

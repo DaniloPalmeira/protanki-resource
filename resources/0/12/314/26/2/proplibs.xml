@@ -1,0 +1,8 @@
+<proplibs>
+	<library name='Bush' resource-id='460af' version='5' />
+	<library name='Village Builds' resource-id='bbab9' version='1' />
+	<library name='Grass Tiles' resource-id='9d53c' version='1' />
+	<library name='Cliffs' resource-id='54268' version='2' />
+	<library name='Roadblock' resource-id='74fc8' version='1' />
+	<library name='Promotion' resource-id='aa6bf' version='20' />
+</proplibs>

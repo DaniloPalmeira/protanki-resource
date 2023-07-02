@@ -1,0 +1,9 @@
+<proplibs>
+	<library name='Defense' resource-id='54cf7' version='3' />
+	<library name='Terrain' resource-id='b60f0' version='c' />
+	<library name='Com Build' resource-id='4fde1' version='3' />
+	<library name='Exterior' resource-id='8f4a3' version='1' />
+	<library name='Fence' resource-id='a337c' version='1' />
+	<library name='Passage' resource-id='d9873' version='3' />
+	<library name='Plants' resource-id='6c356' version='3' />
+</proplibs>
