@@ -84,6 +84,9 @@ function calculateMD5(filePath) {
 }
 
 async function compareAndUpdateFile(originalFilePath, writePath) {
+  if (writePath.includes("letanki") || writePath.includes("pages.dev")) {
+    return;
+  }
   try {
     const originalMD5 = await calculateMD5(originalFilePath);
 
@@ -95,13 +98,9 @@ async function compareAndUpdateFile(originalFilePath, writePath) {
     } catch (err) {
       if (err.code !== "ENOENT") throw err;
       console.log(writePath);
-      if (!writePath.includes("pages.dev")) {
-        await createDirectory(path.dirname(writePath));
-      }
+      await createDirectory(path.dirname(writePath));
     }
-    if (!writePath.includes("pages.dev")) {
-      await updateFile(originalFilePath, writePath);
-    }
+    await updateFile(originalFilePath, writePath);
   } catch (err) {
     throw new Error(`Error comparing and updating file: ${err}`);
   }
